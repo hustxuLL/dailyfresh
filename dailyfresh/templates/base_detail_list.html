@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block search_bar %}
+	<div class="search_bar clearfix">
+{#        <a href="{% url 'goods:index' %}">天天生鲜</a>#}
+        <a href="{% url 'goods:index' %}" class="logo fl"><img src="{% static 'images/logo.png' %}"></a>
+		<div class="search_con fl">
+            <form method="get" action="/search">
+                <input type="text" class="input_text fl" name="q" placeholder="搜索商品">
+                <input type="submit" class="input_btn fr" name="" value="搜索">
+            </form>
+		</div>
+		<div class="guest_cart fr">
+			<a href="{% url 'cart:show' %}" class="cart_name fl">我的购物车</a>
+			<div class="goods_count fl" id="show_count">{{ cart_count }}</div>
+		</div>
+	</div>
+{% endblock search_bar %}
+
+{#商品分类页面 商品详情页面的#}
+{#base预留的body块，上面一部分是相同的#}
+{#下面再重写设置一个预留块#}
+
+{% block body %}
+	<div class="navbar_con">
+		<div class="navbar clearfix">
+			<div class="subnav_con fl">
+				<h1>全部商品分类</h1>
+				<span></span>
+				<ul class="subnav">
+                    {% for type in types %}
+					<li><a href="{% url 'goods:list' type.id 1 %}" class="{{ type.logo }}">{{ type.name }}</a></li>
+					{% endfor %}
+				</ul>
+			</div>
+			<ul class="navlist fl">
+				<li><a href="">首页</a></li>
+				<li class="interval">|</li>
+				<li><a href="">手机生鲜</a></li>
+				<li class="interval">|</li>
+				<li><a href="">抽奖</a></li>
+			</ul>
+		</div>
+	</div>
+    {# 详情页，列表页主体内容块 #}
+    {% block main_content %}{% endblock main_content %}
+{% endblock body %}

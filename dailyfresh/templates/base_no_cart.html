@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{#这个模板文件继承base.html#}
+{#重写base.html里面的搜索狂的预留块 block#}
+{#对应的就是 用户中心 购物车 提交订单 三个页面#}
+{#这三个页面 搜索框 不同就是logo右边的字 所以需要给一个预留块block#}
+{#把其中一个 页面的搜索框的源代码 复制过来#}
+{% block search_bar %}
+    <div class="search_bar clearfix">
+		<a href="{% url 'goods:index' %}" class="logo fl"><img src="{% static 'images/logo.png' %}"></a>
+		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;{% block page_title %}{% endblock page_title %}</div>
+		<div class="search_con fr">
+            <form method="get" action="/search">
+                <input type="text" class="input_text fl" name="q" placeholder="搜索商品">
+                <input type="submit" class="input_btn fr" name="" value="搜索">
+            </form>
+		</div>
+	</div>
+{% endblock search_bar %}

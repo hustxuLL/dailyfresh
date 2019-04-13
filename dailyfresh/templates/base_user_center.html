@@ -1,0 +1,32 @@
+{% extends 'base_no_cart.html' %}
+{% load staticfiles %}
+{#由于用户中心的三个页面 下面两个是相同的#}
+{% block title %}天天生鲜-用户中心{% endblock title %}
+{% block page_title %}用户中心{% endblock page_title %}
+{#对于用户中心的三个页面#}
+{#共性是base留下的body预留块的左边div是相同的#}
+{#右边div是不同的，所以可以重写base里面的body预留块#}
+{#把左侧div相同直接放进去，右边div再设置一个预留块#}
+{% block body %}
+    <div class="main_con clearfix">
+		<div class="left_menu_con clearfix">
+			<h3>用户中心</h3>
+			<ul>
+{#                这里url反向解析 需要配置对于页面的视图类的url#}
+{#				<li><a href="{% url 'user:user' %}">· 个人信息</a></li>#}
+{#				<li><a href="{% url 'user:order' %}">· 全部订单</a></li>#}
+{#				<li><a href="{% url 'user:address' %}" class="active">· 收货地址</a></li>#}
+
+{#                设置 page模板变量 进行判断 来实现点击那个url地址才会高亮显示#}
+                <li><a href="{% url 'user:user' %}" {% if page == 'user' %}class="active"{% endif %}>· 个人信息</a></li>
+				<li><a href="{% url 'user:order' 1 %}" {% if page == 'order' %}class="active"{% endif %}>· 全部订单</a></li>
+				<li><a href="{% url 'user:address' %}" {% if page == 'address' %}class="active"{% endif %}>· 收货地址</a></li>
+			</ul>
+		</div>
+
+
+        {% block right_content %}
+
+        {% endblock right_content %}
+	</div>
+{% endblock body %}
